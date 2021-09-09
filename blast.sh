@@ -5,12 +5,12 @@
 #SBATCH --cpus-per-task=4		                            # Number of cores per task - match this to the num_threads used by BLAST
 #SBATCH --mem=10gb			                                # Total memory for job
 #SBATCH --time=2:00:00  		                            # Time limit hrs:min:sec
-#SBATCH --output=/work/gene8940/cbergman/log.%j			    # Standard output and error log - # replace cbergman with your myid
-#SBATCH --mail-user=cbergman@uga.edu                    # Where to send mail - # replace cbergman with your myid
+#SBATCH --output=/work/gene8940/vjp98982/log.%j			    # Standard output and error log - # replace cbergman with your myid
+#SBATCH --mail-user=vjp98982n@uga.edu                    # Where to send mail - # replace cbergman with your myid
 #SBATCH --mail-type=END,FAIL                            # Mail events (BEGIN, END, FAIL, ALL)
 
 #set input and output directory variables
-OUTDIR="/work/gene8940/cbergman/"                       # replace cbergman in the following line with your myid
+OUTDIR="/work/gene8940/vjp98982/"                       # replace cbergman in the following line with your myid
 DATADIR="/work/gene8940/instructor_data"
 
 #if output directory doesn't exist, create it
