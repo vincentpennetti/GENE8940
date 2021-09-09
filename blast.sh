@@ -6,7 +6,7 @@
 #SBATCH --mem=10gb			                                # Total memory for job
 #SBATCH --time=2:00:00  		                            # Time limit hrs:min:sec
 #SBATCH --output=/work/gene8940/vjp98982/log.%j			    # Standard output and error log - # replace cbergman with your myid
-#SBATCH --mail-user=vjp98982n@uga.edu                    # Where to send mail - # replace cbergman with your myid
+#SBATCH --mail-user=vjp98982@uga.edu                    # Where to send mail - # replace cbergman with your myid
 #SBATCH --mail-type=END,FAIL                            # Mail events (BEGIN, END, FAIL, ALL)
 
 #set input and output directory variables
