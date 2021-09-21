@@ -10,7 +10,7 @@
 #SBATCH --mail-type=ALL                                 # Mail events (BEGIN, END, FAIL, ALL)
 
 #set input and output directory variables
-OUTDIR="home/vjp98982/homework_1"
+OUTDIR="/home/vjp98982/homework_1"
 
 #if output directory doesn't exist, create it
 if [ ! -d $OUTDIR ]
