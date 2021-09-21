@@ -10,8 +10,7 @@
 #SBATCH --mail-type=ALL                                 # Mail events (BEGIN, END, FAIL, ALL)
 
 #set input and output directory variables
-OUTDIR="/work/gene8940/vjp98982/homework_1"
-DATADIR="/work/gene8940/instructor_data"
+OUTDIR="home/vjp98982/homework_1"
 
 #if output directory doesn't exist, create it
 if [ ! -d $OUTDIR ]
@@ -20,7 +19,7 @@ then
 fi
 
 
-# curl the gff file 
+# curl the gff file
 curl -s ftp://ftp.ensemblgenomes.org/pub/bacteria/release-37/gff3/bacteria_0_collection/escherichia_coli_str_k_12_substr_mg1655/Escherichia_coli_str_k_12_substr_mg1655.ASM584v2.37.gff3.gz | gunzip -c > ${OUTDIR}/ecoli_MG1655.gff
 
 
