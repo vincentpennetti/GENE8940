@@ -48,12 +48,5 @@ bedtools getfasta -fi ${OUTDIR}/GCF_000005845.2_ASM584v2.fna -bed ${OUTDIR}/GCF_
 bedtools getfasta -fi ${OUTDIR}/GCF_000005845.2_ASM584v2.fna -bed ${OUTDIR}/GCF_000005845.2_ASM584v2_intergenic.bed -fo ${OUTDIR}/GCF_000005845.2_ASM584v2_extractedIntragenic.fna
 
 # compute the GC content of  CDS and non-CDS intergenic regions (using faCount -summary)
-faCount -summary ${OUTDIR}/GCF_000005845.2_ASM584v2_extractedCDS.fna
-faCount -summary ${OUTDIR}/GCF_000005845.2_ASM584v2_extractedIntragenic.fna
-
-
-
-# cut out the third column (specifying the nucleotide type), pipe to grep
-# each line containing "CDS" is piped to wc
-# wc counts the number of lines output from grep and stores the total in results.txt
-cut -f3 ${OUTDIR}/ecoli_MG1655.gff | grep "CDS" | wc -l > ${OUTDIR}/results.txt
+faCount -summary ${OUTDIR}/GCF_000005845.2_ASM584v2_extractedCDS.fna > ${OUTDIR}/GCF_000005845.2_ASM584v2_extractedCDS_summary.txt
+faCount -summary ${OUTDIR}/GCF_000005845.2_ASM584v2_extractedIntragenic.fna > ${OUTDIR}/GCF_000005845.2_ASM584v2_extractedIntragenic_summary.txt
