@@ -35,7 +35,6 @@ module load MUMmer/3.23_conda
 #wget -O ${OUTDIR}/illumina_read2.fq.gz http://bergmanlab.genetics.uga.edu/data/downloads/gene8940/s_6_2.fastq.gz
 
 # assemble the e coli MG1655 genome using PacBio long reads with Canu
-canu -p MG1655 -d $OUTDIR genomeSize=4.8m useGrid=false -pacbio-raw pacbio.fq.gz
 
 
 
@@ -44,7 +43,7 @@ canu \
  genomeSize=4.8m \
  -pacbio-raw pacbio.fq.gz
 
- 
+
 # assemble the E coli MG1655 genome using Illumina short read data with SPADES
 #spades.py -t 6 -k 21,33,55,77 --isolate --memory 24 --pe1-1 ${OUTDIR}/illumina_read1.fq.gz --pe1-2 ${OUTDIR}/illumina_read2.fq.gz -o ${OUTDIR}
 
