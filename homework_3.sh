@@ -38,10 +38,8 @@ module load MUMmer/3.23_conda
 
 gunzip -c ${OUTDIR}/pacbio.fq.gz > ${OUTDIR}/pacbio.fq
 
-canu \
- -p MG1655 -d $OUTDIR \
- genomeSize=4.8m \
- -pacbio-raw pacbio.fq
+canu -p canuPacBio -d ${OUTDIR} genomeSize=4.8m useGrid=false -pacbio-raw ${OUTDIR}/pacbio.fq
+
 
 
 # assemble the E coli MG1655 genome using Illumina short read data with SPADES
