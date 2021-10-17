@@ -35,21 +35,17 @@ module load MUMmer/3.23_conda
 #wget -O ${OUTDIR}/illumina_read2.fq.gz http://bergmanlab.genetics.uga.edu/data/downloads/gene8940/s_6_2.fastq.gz
 
 # assemble the e coli MG1655 genome using PacBio long reads with Canu
-
-gunzip -c ${OUTDIR}/pacbio.fq.gz > ${OUTDIR}/pacbio.fq
-
-canu -p canuPacBio -d ${OUTDIR} genomeSize=4.8m useGrid=false -pacbio-raw ${OUTDIR}/pacbio.fq
-
-
+#gunzip -c ${OUTDIR}/pacbio.fq.gz > ${OUTDIR}/pacbio.fq
+#canu -p canuPacBio -d ${OUTDIR} genomeSize=4.8m useGrid=false -pacbio-raw ${OUTDIR}/pacbio.fq
 
 # assemble the E coli MG1655 genome using Illumina short read data with SPADES
 #spades.py -t 6 -k 21,33,55,77 --isolate --memory 24 --pe1-1 ${OUTDIR}/illumina_read1.fq.gz --pe1-2 ${OUTDIR}/illumina_read2.fq.gz -o ${OUTDIR}
 
 # run QUAST to generate assembly quality assessment statistics
-quast.py -o $OUTDIR -t 6 -r ${OUTDIR}/GCF_000005845.2_ASM584v2.fna ${OUTDIR}/MG1655.contigs.fasta ${OUTDIR}/scaffolds.fasta
+quast.py -o $OUTDIR -t 6 -r ${OUTDIR}/GCF_000005845.2_ASM584v2.fna ${OUTDIR}/canuPacBio.contigs.fasta ${OUTDIR}/scaffolds.fasta
 
 # mummer for pacbio
-nucmer ${OUTDIR}/GCF_000005845.2_ASM584v2.fna ${OUTDIR}/MG1655.contigs.fasta -p PacBio_mummer
+nucmer ${OUTDIR}/GCF_000005845.2_ASM584v2.fna ${OUTDIR}/canuPacBio.contigs.fasta -p PacBio_mummer
 delta-filter -1 PacBio_mummer.delta > PacBio_mummer.1delta
 mummerplot --size large -layout --color -f --png illumina_mummer.1delta -p illumina_mummer
 
