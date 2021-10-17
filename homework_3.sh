@@ -42,7 +42,7 @@ module load MUMmer/3.23_conda
 #spades.py -t 6 -k 21,33,55,77 --isolate --memory 24 --pe1-1 ${OUTDIR}/illumina_read1.fq.gz --pe1-2 ${OUTDIR}/illumina_read2.fq.gz -o ${OUTDIR}
 
 # run QUAST to generate assembly quality assessment statistics
-quast.py -o $OUTDIR -t 6 -r ${OUTDIR}/GCF_000005845.2_ASM584v2.fna ${OUTDIR}/canuPacBio.contigs.fasta ${OUTDIR}/scaffolds.fasta
+#quast.py -o $OUTDIR -t 6 -r ${OUTDIR}/GCF_000005845.2_ASM584v2.fna ${OUTDIR}/canuPacBio.contigs.fasta ${OUTDIR}/scaffolds.fasta
 
 # mummer for pacbio
 nucmer ${OUTDIR}/GCF_000005845.2_ASM584v2.fna ${OUTDIR}/canuPacBio.contigs.fasta -p PacBio_mummer
