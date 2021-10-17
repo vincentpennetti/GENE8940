@@ -47,7 +47,7 @@ quast.py -o $OUTDIR -t 6 -r ${OUTDIR}/GCF_000005845.2_ASM584v2.fna ${OUTDIR}/can
 # mummer for pacbio
 nucmer ${OUTDIR}/GCF_000005845.2_ASM584v2.fna ${OUTDIR}/canuPacBio.contigs.fasta -p PacBio_mummer
 delta-filter -1 PacBio_mummer.delta > PacBio_mummer.1delta
-mummerplot --size large -layout --color -f --png illumina_mummer.1delta -p illumina_mummer
+mummerplot --size large -layout --color -f --png PacBio_mummer.1delta -p PacBio_mummer
 
 # mummer for illumina_read1
 nucmer ${OUTDIR}/GCF_000005845.2_ASM584v2.fna ${OUTDIR}/scaffolds.fasta -p illumina_mummer
