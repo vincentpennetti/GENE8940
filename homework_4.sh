@@ -32,30 +32,30 @@ module load BCFtools/1.10.2-GCC-8.3.0
 #fastq-dump --split-files --gzip ${OUTDIR}/SRR8082143.sra -O ${OUTDIR}
 
 # construct a BWA index for the E. coli MG1655 refseq reference genome
-bwa index ${OUTDIR}/GCF_000005845.2_ASM584v2.fna
+#bwa index ${OUTDIR}/GCF_000005845.2_ASM584v2.fna
 
 # map reads to reference with bwa and output as sorted BAM file
-bwa mem -t 6 ${OUTDIR}/GCF_000005845.2_ASM584v2.fna ${OUTDIR}/SRR8082143_1.fastq.gz ${OUTDIR}/SRR8082143_2.fastq.gz | samtools view - -O BAM | samtools sort - > ${OUTDIR}/SRR8082143_pipe.sorted.bam
+#bwa mem -t 6 ${OUTDIR}/GCF_000005845.2_ASM584v2.fna ${OUTDIR}/SRR8082143_1.fastq.gz ${OUTDIR}/SRR8082143_2.fastq.gz | samtools view - -O BAM | samtools sort - > ${OUTDIR}/SRR8082143_pipe.sorted.bam
 
 # generate index for sorted .bam file using samtools index
-samtools index ${OUTDIR}/SRR8082143_pipe.sorted.bam
+#samtools index ${OUTDIR}/SRR8082143_pipe.sorted.bam
 
 #####################
 # call variants
 # i) reads with mapping quality >60
-#bcftools mpileup -Oz --threads 6 --min-MQ 60 -f ${OUTDIR}/GCF_000005845.2_ASM584v2.fna ${OUTDIR}/SRR8082143_pipe.sorted.bam > ${OUTDIR}/SRR8082143.sorted.mpileup.vcf.gz
+bcftools mpileup -Oz --threads 6 --min-MQ 60 -f ${OUTDIR}/GCF_000005845.2_ASM584v2.fna ${OUTDIR}/SRR8082143_pipe.sorted.bam > ${OUTDIR}/SRR8082143.sorted.mpileup.vcf.gz
 
 # call the variants
-#bcftools call -Oz -mv --threads 6 --ploidy 1  ${OUTDIR}/SRR8082143.sorted.mpileup.vcf.gz >  ${OUTDIR}/SRR8082143.sorted.mpileup.call.vcf.gz
+bcftools call -Oz -mv --threads 6 --ploidy 1 ${OUTDIR}/SRR8082143.sorted.mpileup.vcf.gz > ${OUTDIR}/SRR8082143.sorted.mpileup.call.vcf.gz
 
 # exclude calls with a quality score < 40 and a depth of <10 reads
-#bcftools filter -Oz -e 'QUAL<40 || DP<10'  ${OUTDIR}/SRR8082143.sorted.mpileup.call.vcf.gz >  ${OUTDIR}/SRR8082143.sorted.mpileup.call.filter.vcf.gz
+bcftools filter -Oz -e 'QUAL<40 || DP<10' ${OUTDIR}/SRR8082143.sorted.mpileup.call.vcf.gz >  ${OUTDIR}/SRR8082143.sorted.mpileup.call.filter.vcf.gz
 #########################
 
 # the above as a single line pipe, avoids wasting compute time on compression and uncompression
-bcftools mpileup -Oz --threads 6 --min-MQ 60 -f ${OUTDIR}/GCF_000005845.2_ASM584v2.fna ${OUTDIR}/SRR8082143_pipe.sorted.bam | \
-bcftools call -Oz -mv --threads 6 --ploidy 1  ${OUTDIR}/SRR8082143.sorted.mpileup.vcf.gz | \
-bcftools filter -Oz -e 'QUAL<40 || DP<10'  ${OUTDIR}/SRR8082143.sorted.mpileup.call.vcf.gz >  ${OUTDIR}/SRR8082143.sorted.mpileup.call.filter.vcf.gz
+#bcftools mpileup -Oz --threads 6 --min-MQ 60 -f ${OUTDIR}/GCF_000005845.2_ASM584v2.fna ${OUTDIR}/SRR8082143_pipe.sorted.bam | \
+#bcftools call -Oz -mv --threads 6 --ploidy 1  ${OUTDIR}/SRR8082143.sorted.mpileup.vcf.gz | \
+#bcftools filter -Oz -e 'QUAL<40 || DP<10'  ${OUTDIR}/SRR8082143.sorted.mpileup.call.vcf.gz >  ${OUTDIR}/SRR8082143.sorted.mpileup.call.filter.vcf.gz
 
 # create IGV readable index file
 bcftools index ${OUTDIR}/SRR8082143.sorted.mpileup.call.filter.vcf.gz
