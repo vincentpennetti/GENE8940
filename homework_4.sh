@@ -20,16 +20,16 @@ fi
 
 # load necessary modules for file processing
 module load SRA-Toolkit/2.9.6-1-centos_linux64
-module load BWA/0.7.17-GCC8.3.0
+module load BWA/0.7.17-GCC-8.3.0
 module load SAMtools/1.10-GCC-8.3.0
 module load BCFtools/1.10.2-GCC-8.3.0
 
 # curl the refseq E coli MG1655 genome sequence
-curl -s https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.fna.gz | gunzip -c > ${OUTDIR}/GCF_000005845.2_ASM584v2.fna
+#curl -s https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.fna.gz | gunzip -c > ${OUTDIR}/GCF_000005845.2_ASM584v2.fna
 
 # dowload and extract paired end illumina reads from ncbi for e coli C600
-prefetch -O ${OUTDIR} SRR8082143
-fastq-dump --split-files --gzip ${OUTDIR}/SRR8082143.sra -O ${OUTDIR}
+#prefetch -O ${OUTDIR} SRR8082143
+#fastq-dump --split-files --gzip ${OUTDIR}/SRR8082143.sra -O ${OUTDIR}
 
 # construct a BWA index for the E. coli MG1655 refseq reference genome
 bwa index ${OUTDIR}/GCF_000005845.2_ASM584v2.fna
