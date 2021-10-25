@@ -49,7 +49,7 @@ bcftools mpileup -Oz --threads 6 --min-MQ 60 -f ${OUTDIR}/GCF_000005845.2_ASM584
 bcftools call -Oz -mv --threads 6 --ploidy 1 ${OUTDIR}/SRR8082143.sorted.mpileup.vcf.gz > ${OUTDIR}/SRR8082143.sorted.mpileup.call.vcf.gz
 
 # exclude calls with a quality score < 40 and a depth of <10 reads
-bcftools filter -Oz -i 'QUAL<40 && DP<10' ${OUTDIR}/SRR8082143.sorted.mpileup.call.vcf.gz >  ${OUTDIR}/SRR8082143.sorted.mpileup.call.filter.vcf.gz
+bcftools filter -Oz -e 'QUAL>40 || DP>10' ${OUTDIR}/SRR8082143.sorted.mpileup.call.vcf.gz >  ${OUTDIR}/SRR8082143.sorted.mpileup.call.filter.vcf.gz
 #########################
 
 # the above as a single line pipe, avoids wasting compute time on compression and uncompression
