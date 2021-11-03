@@ -18,6 +18,15 @@ then
     mkdir -p $OUTDIR
 fi
 
+for kpath in SRR5344681 SRR5344682 SRR5344683 SRR5344684
+do
+  if [ ! -d $OUTDIR/kallisto/$kpath ]
+  then
+      mkdir -p $OUTDIR/kallisto/$kpath
+  fi
+done
+
+
 # # curl the refseq E coli MG1655 genome sequence
 curl -s https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_cds_from_genomic.fna.gz | gunzip -c > ${OUTDIR}/GCF_000005845.2_ASM584v2_cds.fa
 
@@ -32,3 +41,6 @@ kallisto quant -t 6 -b 100 -i ${OUTDIR}/GCF_000005845.2_ASM584v2_cds.fa.idx -o $
 
 conda activate R
 R --no-save < $HOME/GENE8940/homework5.r
+
+
+kallisto quant -t 6 -b 100 -i /work/gene8940/vjp98982/homework_5/GCF_000005845.2_ASM584v2_cds.fa.idx -o /work/gene8940/vjp98982/homework_5/kallisto/SRR5344681 /work/gene8940/instructor_data/SRR5344681_1.fastq.gz /work/gene8940/instructor_data/SRR5344681_2.fastq.gz
