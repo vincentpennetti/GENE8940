@@ -37,9 +37,15 @@ fastq-dump --split-files --gzip ${OUTDIR}/SRR5804120.sra -O ${OUTDIR}
 prefetch -O ${OUTDIR} SRR5804121
 fastq-dump --split-files --gzip ${OUTDIR}/SRR5804121.sra -O ${OUTDIR}
 
+# perform fastqc to assess read quality
+fastqc ${OUTDIR}/SRR5804120_1.fq.gz ${OUTDIR}/SRR5804120_2.fq.gz ${OUTDIR}/SRR5804121_1.fq.gz ${OUTDIR}/SRR5804121_2.fq.gz --outdir ${OUTDIR}/fastqc_out
 
 # use trimgalore to improve the quality of the reads prior to spades assembly. Trim out adapter sequences
 
 ##### this is the assembly command from HW3, use as a model for the project
 # assemble the E coli MG1655 genome using Illumina short read data with SPADES
 #spades.py -t 6 -k 21,33,55,77 --isolate --memory 24 --pe1-1 ${OUTDIR}/illumina_read1.fq.gz --pe1-2 ${OUTDIR}/illumina_read2.fq.gz -o ${OUTDIR}
+
+#spades.py -t 8 -k 21,33,55,77 --isolate --memory 32 --pe1-1 ${OUTDIR}/SRR5804120_1.fq.gz --pe1-2 ${OUTDIR}/SRR5804120_2.fq.gz --pe2-1 ${OUTDIR}/SRR5804121_1.fq.gz --pe2-2 ${OUTDIR}/SRR5804121_2.fq.gz-o ${OUTDIR}
+
+# quast to assess assembly contiguity
