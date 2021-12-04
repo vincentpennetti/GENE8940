@@ -3,7 +3,7 @@
 #SBATCH --partition=batch		                            # Partition (queue) name
 #SBATCH --ntasks=1			                                # Single task job
 #SBATCH --cpus-per-task=8		                            # Number of cores per task - match this to the num_threads used by BLAST
-#SBATCH --mem=48gb			                                # Total memory for job
+#SBATCH --mem=40gb			                                # Total memory for job
 #SBATCH --time=8:00:00  		                            # Time limit hrs:min:sec
 #SBATCH --output=/work/gene8940/vjp98982/log.%j			    # Standard output and error log - # replace cbergman with your myid
 #SBATCH --mail-user=vjp98982@uga.edu                    # Where to send mail - # replace cbergman with your myid
@@ -55,6 +55,6 @@ module load SPAdes/3.14.1-GCC-8.3.0-Python-3.7.4
 
 # removed "--pe2-1 ${OUTDIR}/SRR5804121_1.fastq.gz --pe2-2 ${OUTDIR}/SRR5804121_2.fastq.gz"
 # running out of memory and that replicate is far less clean
-spades.py -t 8 -k 21,33,55,77 --isolate --memory 48 --pe1-1 ${OUTDIR}/SRR5804120_1.fastq.gz --pe1-2 ${OUTDIR}/SRR5804120_2.fastq.gz  -o ${OUTDIR}/untrimmed_SRR5804120
+spades.py -t 8 -k 21,33,55,77 --isolate --memory 40 --pe1-1 ${OUTDIR}/SRR5804120_1.fastq.gz --pe1-2 ${OUTDIR}/SRR5804120_2.fastq.gz  -o ${OUTDIR}/untrimmed_SRR5804120
 
 # quast to assess assembly contiguity
