@@ -23,6 +23,12 @@ then
     mkdir -p ${OUTDIR}/fastqc_out
 fi
 
+if [ ! -d ${OUTDIR}/untrimmed_asm ]
+then
+    mkdir -p ${OUTDIR}/untrimmed_asm
+fi
+
+
 module load SRA-Toolkit/2.9.6-1-centos_linux64
 module load FastQC/0.11.9-Java-11
 module load Trim_Galore/0.6.5-GCCcore-8.3.0-Java-11-Python-3.7.4
@@ -45,8 +51,8 @@ module load SPAdes/3.14.1-GCC-8.3.0-Python-3.7.4
 
 ##### this is the assembly command from HW3, use as a model for the project
 # assemble the E coli MG1655 genome using Illumina short read data with SPADES
-spades.py -t 8 -k 21,33,55,77 --isolate --memory 32 --pe1-1 ${OUTDIR}/illumina_read1.fq.gz --pe1-2 ${OUTDIR}/illumina_read2.fq.gz -o ${OUTDIR}
+#spades.py -t 8 -k 21,33,55,77 --isolate --memory 32 --pe1-1 ${OUTDIR}/illumina_read1.fastq.gz --pe1-2 ${OUTDIR}/illumina_read2.fastq.gz -o ${OUTDIR}
 
-#spades.py -t 8 -k 21,33,55,77 --isolate --memory 32 --pe1-1 ${OUTDIR}/SRR5804120_1.fq.gz --pe1-2 ${OUTDIR}/SRR5804120_2.fq.gz --pe2-1 ${OUTDIR}/SRR5804121_1.fq.gz --pe2-2 ${OUTDIR}/SRR5804121_2.fq.gz-o ${OUTDIR}
+spades.py -t 8 -k 21,33,55,77 --isolate --memory 32 --pe1-1 ${OUTDIR}/SRR5804120_1.fastq.gz --pe1-2 ${OUTDIR}/SRR5804120_2.fastq.gz --pe2-1 ${OUTDIR}/SRR5804121_1.fastq.gz --pe2-2 ${OUTDIR}/SRR5804121_2.fastq.gz-o ${OUTDIR}/untrimmed_asm
 
 # quast to assess assembly contiguity
