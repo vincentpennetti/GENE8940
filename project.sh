@@ -26,6 +26,7 @@ fi
 module load SRA-Toolkit/2.9.6-1-centos_linux64
 module load FastQC/0.11.9-Java-11
 module load Trim_Galore/0.6.5-GCCcore-8.3.0-Java-11-Python-3.7.4
+module load SPAdes/3.14.1-GCC-8.3.0-Python-3.7.4
 
 
 
@@ -38,7 +39,7 @@ module load Trim_Galore/0.6.5-GCCcore-8.3.0-Java-11-Python-3.7.4
 #fastq-dump --split-files --gzip ${OUTDIR}/SRR5804121.sra -O ${OUTDIR}
 
 # perform fastqc to assess read quality
-fastqc ${OUTDIR}/SRR5804120_1.fastq.gz ${OUTDIR}/SRR5804120_2.fastq.gz ${OUTDIR}/SRR5804121_1.fastq.gz ${OUTDIR}/SRR5804121_2.fastq.gz --outdir ${OUTDIR}/fastqc_out
+#fastqc ${OUTDIR}/SRR5804120_1.fastq.gz ${OUTDIR}/SRR5804120_2.fastq.gz ${OUTDIR}/SRR5804121_1.fastq.gz ${OUTDIR}/SRR5804121_2.fastq.gz --outdir ${OUTDIR}/fastqc_out
 
 # use trimgalore to improve the quality of the reads prior to spades assembly. Trim out adapter sequences
 
