@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=project                           # Job name
-#SBATCH --partition=sbatch		                            # Partition (queue) name
+#SBATCH --partition=batch		                            # Partition (queue) name
 #SBATCH --ntasks=1			                                # Single task job
 #SBATCH --cpus-per-task=8		                            # Number of cores per task - match this to the num_threads used by BLAST
 #SBATCH --mem=48gb			                                # Total memory for job
