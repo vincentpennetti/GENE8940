@@ -2,7 +2,7 @@
 #SBATCH --job-name=project                           # Job name
 #SBATCH --partition=batch		                            # Partition (queue) name
 #SBATCH --ntasks=1			                                # Single task job
-#SBATCH --cpus-per-task=8		                            # Number of cores per task - match this to the num_threads used by BLAST
+#SBATCH --cpus-per-task=10		                            # Number of cores per task - match this to the num_threads used by BLAST
 #SBATCH --mem=40gb			                                # Total memory for job
 #SBATCH --time=8:00:00  		                            # Time limit hrs:min:sec
 #SBATCH --output=/work/gene8940/vjp98982/log.%j			    # Standard output and error log - # replace cbergman with your myid
@@ -28,11 +28,22 @@ then
     mkdir -p ${OUTDIR}/untrimmed_SRR5804120
 fi
 
+if [ ! -d ${OUTDIR}/untrimmed_SRR5804120_sub ]
+then
+    mkdir -p ${OUTDIR}/untrimmed_SRR5804120_sub
+fi
+
+if [ ! -d ${OUTDIR}/sub ]
+then
+    mkdir -p ${OUTDIR}/sub
+fi
+
 
 module load SRA-Toolkit/2.9.6-1-centos_linux64
 module load FastQC/0.11.9-Java-11
 module load Trim_Galore/0.6.5-GCCcore-8.3.0-Java-11-Python-3.7.4
 module load SPAdes/3.14.1-GCC-8.3.0-Python-3.7.4
+module load  seqtk/1.3-GCC-8.3.0
 
 
 
@@ -55,6 +66,13 @@ module load SPAdes/3.14.1-GCC-8.3.0-Python-3.7.4
 
 # removed "--pe2-1 ${OUTDIR}/SRR5804121_1.fastq.gz --pe2-2 ${OUTDIR}/SRR5804121_2.fastq.gz"
 # running out of memory and that replicate is far less clean
-spades.py -t 8 -k 21,33,55,77 --isolate --memory 40 --pe1-1 ${OUTDIR}/SRR5804120_1.fastq.gz --pe1-2 ${OUTDIR}/SRR5804120_2.fastq.gz  -o ${OUTDIR}/untrimmed_SRR5804120
+#spades.py -t 10 -k 21,33,55,77 --isolate --memory 96 --pe1-1 ${OUTDIR}/SRR5804120_1.fastq.gz --pe1-2 ${OUTDIR}/SRR5804120_2.fastq.gz  -o ${OUTDIR}/untrimmed_SRR5804120
+
+
+# due to memory constraints, I am going to downsample the data
+seqtk sample -s100 ${OUTDIR}/SRR5804120_1.fastq.gz 0.2 > ${OUTDIR}/sub/read1.fq
+seqtk sample -s100 ${OUTDIR}/SRR5804120_2.fastq.gz 0.2 > ${OUTDIR}/sub/read2.fq
+
+spades.py -t 10 -k 21,33,55,77 --isolate --memory 40 --pe1-1 ${OUTDIR}/sub/read1.fq --pe1-2 ${OUTDIR}/sub/read2.fq  -o ${OUTDIR}/untrimmed_SRR5804120_sub
 
 # quast to assess assembly contiguity
