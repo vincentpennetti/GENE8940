@@ -2,8 +2,8 @@
 #SBATCH --job-name=project                           # Job name
 #SBATCH --partition=batch		                            # Partition (queue) name
 #SBATCH --ntasks=1			                                # Single task job
-#SBATCH --cpus-per-task=8		                            # Number of cores per task - match this to the num_threads used by BLAST
-#SBATCH --mem=32gb			                                # Total memory for job
+#SBATCH --cpus-per-task=10		                            # Number of cores per task - match this to the num_threads used by BLAST
+#SBATCH --mem=64gb			                                # Total memory for job
 #SBATCH --time=8:00:00  		                            # Time limit hrs:min:sec
 #SBATCH --output=/work/gene8940/vjp98982/log.%j			    # Standard output and error log - # replace cbergman with your myid
 #SBATCH --mail-user=vjp98982@uga.edu                    # Where to send mail - # replace cbergman with your myid
@@ -23,9 +23,9 @@ then
     mkdir -p ${OUTDIR}/fastqc_out
 fi
 
-if [ ! -d ${OUTDIR}/untrimmed_asm ]
+if [ ! -d ${OUTDIR}/untrimmed_SRR5804120 ]
 then
-    mkdir -p ${OUTDIR}/untrimmed_asm
+    mkdir -p ${OUTDIR}/untrimmed_SRR5804120
 fi
 
 
@@ -53,6 +53,8 @@ module load SPAdes/3.14.1-GCC-8.3.0-Python-3.7.4
 # assemble the E coli MG1655 genome using Illumina short read data with SPADES
 #spades.py -t 8 -k 21,33,55,77 --isolate --memory 32 --pe1-1 ${OUTDIR}/illumina_read1.fastq.gz --pe1-2 ${OUTDIR}/illumina_read2.fastq.gz -o ${OUTDIR}
 
-spades.py -t 8 -k 21,33,55,77 --isolate --memory 32 --pe1-1 ${OUTDIR}/SRR5804120_1.fastq.gz --pe1-2 ${OUTDIR}/SRR5804120_2.fastq.gz --pe2-1 ${OUTDIR}/SRR5804121_1.fastq.gz --pe2-2 ${OUTDIR}/SRR5804121_2.fastq.gz -o ${OUTDIR}/untrimmed_asm
+# removed "--pe2-1 ${OUTDIR}/SRR5804121_1.fastq.gz --pe2-2 ${OUTDIR}/SRR5804121_2.fastq.gz"
+# running out of memory and that replicate is far less clean
+spades.py -t 10 -k 21,33,55,77 --isolate --memory 64 --pe1-1 ${OUTDIR}/SRR5804120_1.fastq.gz --pe1-2 ${OUTDIR}/SRR5804120_2.fastq.gz  -o ${OUTDIR}/untrimmed_SRR5804120
 
 # quast to assess assembly contiguity
