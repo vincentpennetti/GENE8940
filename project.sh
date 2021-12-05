@@ -38,6 +38,11 @@ then
     mkdir -p ${OUTDIR}/sub
 fi
 
+if [ ! -d ${OUTDIR}/sub_quast ]
+then
+    mkdir -p ${OUTDIR}/sub_quast
+fi
+
 
 module load SRA-Toolkit/2.9.6-1-centos_linux64
 module load FastQC/0.11.9-Java-11
@@ -70,9 +75,10 @@ module load  seqtk/1.3-GCC-8.3.0
 
 
 # due to memory constraints, I am going to downsample the data
-seqtk sample -s100 ${OUTDIR}/SRR5804120_1.fastq.gz 0.2 > ${OUTDIR}/sub/read1.fq
-seqtk sample -s100 ${OUTDIR}/SRR5804120_2.fastq.gz 0.2 > ${OUTDIR}/sub/read2.fq
+#seqtk sample -s100 ${OUTDIR}/SRR5804120_1.fastq.gz 0.2 > ${OUTDIR}/sub/read1.fq
+#seqtk sample -s100 ${OUTDIR}/SRR5804120_2.fastq.gz 0.2 > ${OUTDIR}/sub/read2.fq
 
-spades.py -t 10 -k 21,33,55,77 --isolate --memory 40 --pe1-1 ${OUTDIR}/sub/read1.fq --pe1-2 ${OUTDIR}/sub/read2.fq  -o ${OUTDIR}/untrimmed_SRR5804120_sub
+#spades.py -t 10 -k 21,33,55,77 --isolate --memory 40 --pe1-1 ${OUTDIR}/sub/read1.fq --pe1-2 ${OUTDIR}/sub/read2.fq  -o ${OUTDIR}/untrimmed_SRR5804120_sub
 
-# quast to assess assembly contiguity
+# quast to assess assembly
+quast.py --fungus -o ${OUTDIR}/sub_quast -t 10 ${OUTDIR}//untrimmed_SRR5804120_sub/scaffolds.fasta
