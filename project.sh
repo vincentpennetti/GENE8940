@@ -83,4 +83,4 @@ module load QUAST/5.0.2-foss-2019b-Python-3.7.4
 #spades.py -t 10 -k 21,33,55,77 --isolate --memory 40 --pe1-1 ${OUTDIR}/sub/read1.fq --pe1-2 ${OUTDIR}/sub/read2.fq  -o ${OUTDIR}/untrimmed_SRR5804120_sub
 
 # quast to assess assembly
-quast.py --fungus -o ${OUTDIR}/sub_quast -t 10 ${OUTDIR}//untrimmed_SRR5804120_sub/scaffolds.fasta
+quast.py --fungus -o ${OUTDIR}/sub_quast -t 10 ${OUTDIR}/untrimmed_SRR5804120_sub/scaffolds.fasta
