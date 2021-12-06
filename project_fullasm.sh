@@ -38,14 +38,14 @@ then
     mkdir -p ${OUTDIR}/sub
 fi
 
-if [ ! -d ${OUTDIR}/sub_quast ]
+if [ ! -d ${OUTDIR}/quast ]
 then
-    mkdir -p ${OUTDIR}/sub_quast
+    mkdir -p ${OUTDIR}/quast
 fi
 
-if [ ! -d ${OUTDIR}/sub_quast/find_genes ]
+if [ ! -d ${OUTDIR}/quast/find_genes ]
 then
-    mkdir -p ${OUTDIR}/sub_quast/find_genes
+    mkdir -p ${OUTDIR}/quast/find_genes
 fi
 
 
@@ -82,7 +82,10 @@ module load QUAST/5.0.2-foss-2019b-Python-3.7.4
 #spades.py -t 10 -k 21,33,55,77 --isolate --memory 128 --pe1-1 ${SRADIR}/SRR5804120_1.fastq.gz --pe1-2 ${SRADIR}/SRR5804120_2.fastq.gz  -o ${OUTDIR}/untrimmed_SRR5804120
 
 # quast to assess assembly
-quast.py --fungus -o ${OUTDIR}/sub_quast -t 10 ${OUTDIR}/untrimmed_SRR5804120/scaffolds.fasta
+#quast.py --fungus -o ${OUTDIR}/sub_quast -t 10 ${OUTDIR}/untrimmed_SRR5804120/scaffolds.fasta
 
 # testing quast for gene prediction
-quast.py --fungus --gene-finding -o ${OUTDIR}/sub_quast/find_genes -t 10 ${OUTDIR}/untrimmed_SRR5804120/scaffolds.fasta
+#quast.py --fungus --gene-finding -o ${OUTDIR}/sub_quast/find_genes -t 10 ${OUTDIR}/untrimmed_SRR5804120/scaffolds.fasta
+
+# testing quast for gene prediction
+quast.py --fungus --glimmer -o ${OUTDIR}/quast/find_genes -t 10 ${OUTDIR}/untrimmed_SRR5804120/scaffolds.fasta
