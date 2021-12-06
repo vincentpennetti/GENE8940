@@ -56,6 +56,7 @@ module load Trim_Galore/0.6.5-GCCcore-8.3.0-Java-11-Python-3.7.4
 module load SPAdes/3.14.1-GCC-8.3.0-Python-3.7.4
 module load  seqtk/1.3-GCC-8.3.0
 module load QUAST/5.0.2-foss-2019b-Python-3.7.4
+module load MUMmer/3.23_conda
 
 
 
