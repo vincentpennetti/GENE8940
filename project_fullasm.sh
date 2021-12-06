@@ -59,6 +59,8 @@ module load QUAST/5.0.2-foss-2019b-Python-3.7.4
 
 
 
+# retrieve existing illumina-based assembly from a different dataset
+curl -s https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/003/313/985/GCA_003313985.1_ASM331398v1/GCA_003313985.1_ASM331398v1_genomic.fna.gz | gunzip -c > ${OUTDIR}/GCA_003313985.1_ASM331398v1_genomic.fna
 
 # dowload and extract paired end illumina reads from ncbi for Lactarius indigo SRA file for run SRR5804120
 #prefetch -O ${OUTDIR} SRR5804120
@@ -89,3 +91,8 @@ module load QUAST/5.0.2-foss-2019b-Python-3.7.4
 
 # testing quast for gene prediction
 quast.py --fungus --glimmer -o ${OUTDIR}/quast/find_genes -t 10 ${OUTDIR}/untrimmed_SRR5804120/scaffolds.fasta
+
+# compare my assembly to that of another experiment on the same mushroom species
+nucmer ${OUTDIR}/GCA_003313985.1_ASM331398v1_genomic.fna ${OUTDIR}/untrimmed_SRR5804120/scaffolds.fasta -p illumina_mummer
+delta-filter -1 illumina_mummer.delta > illumina_mummer.1delta
+mummerplot --size large -layout --color -f --png illumina_mummer.1delta -p illumina_mummer
