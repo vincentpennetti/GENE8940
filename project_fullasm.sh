@@ -43,6 +43,12 @@ then
     mkdir -p ${OUTDIR}/sub_quast
 fi
 
+if [ ! -d ${OUTDIR}/sub_quast/find_genes ]
+then
+    mkdir -p ${OUTDIR}/sub_quast/find_genes
+fi
+
+
 
 module load SRA-Toolkit/2.9.6-1-centos_linux64
 module load FastQC/0.11.9-Java-11
@@ -73,7 +79,10 @@ module load QUAST/5.0.2-foss-2019b-Python-3.7.4
 
 # removed "--pe2-1 ${OUTDIR}/SRR5804121_1.fastq.gz --pe2-2 ${OUTDIR}/SRR5804121_2.fastq.gz"
 # running out of memory and that replicate is far less clean
-spades.py -t 10 -k 21,33,55,77 --isolate --memory 128 --pe1-1 ${SRADIR}/SRR5804120_1.fastq.gz --pe1-2 ${SRADIR}/SRR5804120_2.fastq.gz  -o ${OUTDIR}/untrimmed_SRR5804120
+#spades.py -t 10 -k 21,33,55,77 --isolate --memory 128 --pe1-1 ${SRADIR}/SRR5804120_1.fastq.gz --pe1-2 ${SRADIR}/SRR5804120_2.fastq.gz  -o ${OUTDIR}/untrimmed_SRR5804120
 
 # quast to assess assembly
-quast.py --fungus -o ${OUTDIR}/sub_quast -t 10 ${OUTDIR}/untrimmed_SRR5804120_sub/scaffolds.fasta
+quast.py --fungus -o ${OUTDIR}/sub_quast -t 10 ${OUTDIR}/untrimmed_SRR5804120/scaffolds.fasta
+
+# testing quast for gene prediction
+quast.py --fungus --gene-finding -o ${OUTDIR}/sub_quast/find_genes -t 10 ${OUTDIR}/untrimmed_SRR5804120/scaffolds.fasta
