@@ -90,7 +90,7 @@ curl -s https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/003/313/985/GCA_003313985.1
 #quast.py --fungus --gene-finding -o ${OUTDIR}/sub_quast/find_genes -t 10 ${OUTDIR}/untrimmed_SRR5804120/scaffolds.fasta
 
 # testing quast for gene prediction
-quast.py --fungus --glimmer -o ${OUTDIR}/quast/find_genes -t 10 ${OUTDIR}/untrimmed_SRR5804120/scaffolds.fasta
+#quast.py --fungus --glimmer -o ${OUTDIR}/quast/find_genes -t 10 ${OUTDIR}/untrimmed_SRR5804120/scaffolds.fasta
 
 # compare my assembly to that of another experiment on the same mushroom species
 nucmer ${OUTDIR}/GCA_003313985.1_ASM331398v1_genomic.fna ${OUTDIR}/untrimmed_SRR5804120/scaffolds.fasta -p illumina_mummer
