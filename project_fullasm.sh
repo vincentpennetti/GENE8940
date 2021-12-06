@@ -95,5 +95,5 @@ curl -s https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/003/313/985/GCA_003313985.1
 
 # compare my assembly to that of another experiment on the same mushroom species
 nucmer ${OUTDIR}/GCA_003313985.1_ASM331398v1_genomic.fna ${OUTDIR}/untrimmed_SRR5804120/scaffolds.fasta -p illumina_mummer
-delta-filter -1 illumina_mummer.delta > illumina_mummer.1delta
+delta-filter -i 80 -l 1000 -1 illumina_mummer.delta > illumina_mummer.1delta
 mummerplot --size large -layout --color -f --png illumina_mummer.1delta -p illumina_mummer
